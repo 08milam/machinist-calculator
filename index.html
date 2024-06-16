@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graduation Marks on Axes with Center Circle</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="dark-mode-toggle">
+        <label for="modeToggle">Dark Mode:</label>
+        <input type="checkbox" id="modeToggle" />
+    </div>
+    <div class="container">
+        <canvas id="field" width="865" height="865"></canvas>
+        <div class="controls">
+            <!-- Blue Square Controls -->
+            <h3>Blue Square Controls</h3>
+            <label for="width">Width:</label>
+            <input type="number" id="width" value="100" step="0.001" />
+            <label for="height">Height:</label>
+            <input type="number" id="height" value="100" step="0.001" />
+            <label for="depth">Depth:</label>
+            <input type="number" id="depth" value="100" step="0.001" />
+            <label for="unit">Unit:</label>
+            <select id="unit">
+                <option value="inch">Inch</option>
+                <option value="feet">Feet</option>
+                <option value="cm">Centimeter</option>
+                <option value="mm">Millimeter</option>
+            </select>
+            <!-- Red Circle Controls -->
+            <div class="circle-controls">
+                <h3>Red Circle Controls</h3>
+                <div class="toggle-inputs">
+                    <label>
+                        <input type="radio" name="inputMode" value="coordinates" checked /> Coordinates
+                    </label>
+                    <label>
+                        <input type="radio" name="inputMode" value="polar" /> Angle & Distance
+                    </label>
+                </div>
+                <fieldset id="coordinatesInputs">
+                    <legend>Coordinates</legend>
+                    <label for="redCircleX">X Coordinate:</label>
+                    <input type="number" id="redCircleX" value="0" step="0.0001" />
+                    <label for="redCircleY">Y Coordinate:</label>
+                    <input type="number" id="redCircleY" value="0" step="0.0001" />
+                    <label for="redCircleZ">Z Coordinate:</label>
+                    <input type="number" id="redCircleZ" value="0" step="0.0001" />
+                </fieldset>
+                <fieldset id="polarInputs" style="display: none">
+                    <legend>Angle & Distance</legend>
+                    <label for="angleInput">Angle (Degrees):</label>
+                    <div class="angle-direction-container">
+                        <input type="number" id="angleInput" value="0" step="0.1" />
+                        <select id="directionInput">
+                            <option value="cw">cw</option>
+                            <option value="cc">cc</option>
+                        </select>
+                    </div>
+                    <label for="distanceInput">Distance from Center:</label>
+                    <input type="number" id="distanceInput" value="0" step="0.1" />
+                    <label for="polarZInput">Z Coordinate:</label>
+                    <input type="number" id="polarZInput" value="0" step="0.0001" />
+                </fieldset>
+                <label for="redCircleDiameter">Diameter:</label>
+                <input type="number" id="redCircleDiameter" value="20" step="0.001" />
+                <label for="toolSelect">Select Tool:</label>
+                <select id="toolSelect">
+                    <option value="hssDrill">HSS Drill</option>
+                    <option value="carbideDrill">Carbide Drill</option>
+                    <option value="insertDrill">Insert Drill</option>
+                    <option value="flatBottomDrill">Flat Bottom Drill</option>
+                    <option value="carbideMill">Carbide Mill</option>
+                    <option value="reamer">Reamer</option>
+                    <option value="coldFormTap">Cold Form Tap</option>
+                    <option value="spiralLockTaps">Spiral Lock Taps</option>
+                </select>
+                <h3>Material Controls</h3>
+                <label for="metalDropdown">Select Material:</label>
+                <select id="metalDropdown" onchange="updateAlloyDropdown()">
+                    <option value="">Select Material</option>
+                    <option value="aluminum">Aluminum</option>
+                    <option value="brass">Brass</option>
+                    <option value="bronze">Bronze</option>
+                    <option value="copper">Copper</option>
+                    <option value="nickel">Nickel</option>
+                    <option value="carbonSteel">Carbon Steel</option>
+                    <option value="alloySteel">Alloy Steel</option>
+                    <option value="stainlessSteel">Stainless Steel</option>
+                    <option value="toolSteel">Tool Steel</option>
+                    <option value="inconel">Inconel</option>
+                    <option value="titanium">Titanium</option>
+                    <option value="magnesium">Magnesium</option>
+                    <option value="zinc">Zinc</option>
+                    <option value="tungsten">Tungsten</option>
+                    <option value="molybdenum">Molybdenum</option>
+                    <option value="cobalt">Cobalt</option>
+                    <option value="gold">Gold</option>
+                    <option value="silver">Silver</option>
+                    <option value="platinum">Platinum</option>
+                    <option value="palladium">Palladium</option>
+                    <option value="lead">Lead</option>
+                    <option value="tin">Tin</option>
+                    <option value="zirconium">Zirconium</option>
+                    <option value="plastics">Plastics</option>
+                    <option value="glass">Glass</option>
+                    <option value="wood">Wood</option>
+                </select>
+                <label for="alloyDropdown" style="margin-top: 10px">Select Alloy:</label>
+                <select id="alloyDropdown">
+                    <option value="">Select Alloy</option>
+                </select>
+                <button id="addCircle" class="action-button">Add Red Circle</button>
+                <button id="removeCircle" class="action-button">Remove Last Red Circle</button>
+            </div>
+            <h3>Motion Controls</h3>
+            <label for="zoomSlider">Zoom:</label>
+            <input type="range" id="zoomSlider" min="0.1" max="10" step="0.1" value="1" />
+            <div class="arrow-buttons">
+                <button id="arrowLeft">←</button>
+                <div class="vertical-buttons">
+                    <button id="arrowUp">↑</button>
+                    <button id="arrowDown">↓</button>
+                </div>
+                <button id="arrowRight">→</button>
+            </div>
+        </div>
+    </div>
+    <div class="coordinates-container">
+        <div class="coordinates-heading">
+            <h3>Red Circles Coordinates</h3>
+        </div>
+        <div class="coordinates">
+            <ul id="coordinatesList"></ul>
+        </div>
+    </div>
+    <!-- Tapering Cycle G-Code Generator -->
+    <div class="tapering-cycle-container">
+        <h1>Tapering Cycle G-Code Generator</h1>
+        <div class="input-group">
+            <label for="units">Units:</label>
+            <select id="units">
+                <option value="mm">Millimeters</option>
+                <option value="inch">Inches</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="startDiameter">Start Diameter:</label>
+            <input type="number" id="startDiameter" required />
+        </div>
+        <div class="input-group">
+            <label for="endDiameter">End Diameter:</label>
+            <input type="number" id="endDiameter" required />
+        </div>
+        <div class="input-group">
+            <label for="length">Length:</label>
+            <input type="number" id="length" required />
+        </div>
+        <div class="input-group">
+            <label for="depth">Cut Depth:</label>
+            <input type="number" id="depth" required />
+        </div>
+        <button onclick="generateGCode()">Generate G-Code</button>
+        <div class="output" id="gcodeOutput"></div>
+    </div>
+    <!-- Drill to Tap Calculator -->
+    <div class="dt-container">
+        <h1>Drill to Tap Calculator</h1>
+        <div class="input-group">
+            <label for="unit-system">Unit System:</label>
+            <select id="unit-system" onchange="toggleUnitLabels()">
+                <option value="metric">Metric</option>
+                <option value="inch">Inch</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="drill-size" id="drill-size-label">Drill Size (mm):</label>
+            <input type="number" id="drill-size" step="0.01" />
+        </div>
+        <div class="input-group">
+            <label for="thread-pitch" id="thread-pitch-label">Thread Pitch (mm):</label>
+            <input type="number" id="thread-pitch" step="0.01" />
+        </div>
+        <button onclick="calculateTap()">Calculate Tap Size</button>
+        <div class="result" id="result"></div>
+    </div>
+    <!-- Standard to Metric Converter -->
+    <div class="unitconverter">
+        <h1>Standard to Metric Converter</h1>
+        <h2>Length (Inches to Centimeters)</h2>
+        <label for="inches">Inches:</label>
+        <input type="number" id="inches" />
+        <button onclick="convertLength()">Convert</button>
+        <p id="lengthResult"></p>
+
+        <h2>Weight (Pounds to Kilograms)</h2>
+        <label for="pounds">Pounds:</label>
+        <input type="number" id="pounds" />
+        <button onclick="convertWeight()">Convert</button>
+        <p id="weightResult"></p>
+
+  
+        <h2>Temperature (Fahrenheit to Celsius)</h2>
+        <label for="fahrenheit">Fahrenheit:</label>
+        <input type="number" id="fahrenheit" />
+        <button onclick="convertTemperature()">Convert</button>
+        <p id="temperatureResult"></p>
+    </div>
+    <!-- CNC G-code and M-code Container -->
+    <div class="cnc-container">
+        <h1>G-code and M-code for Red Circle Coordinates</h1>
+        <pre><code>
+% (Start of the program)
+G21             ; Set units to millimeters (use G20 for inches)
+G17             ; Select XY plane
+G90             ; Absolute positioning
+G0 Z10.0        ; Raise tool to safe height
+; Define parameters
+#1 = 10         ; Circle 1 X position
+#2 = 20         ; Circle 1 Y position
+#3 = 30         ; Circle 2 X position
+#4 = 40         ; Circle 2 Y position
+#5 = 50         ; Circle 3 X position
+#6 = 60         ; Circle 3 Y position
+#7 = -5         ; Drilling depth
+#8 = -5         ; Tapping depth
+#9 = 10         ; Retract height
+#10 = 5         ; Thread milling depth
+#11 = 1         ; Thread pitch
+; Probing Cycle for Circle 1
+M6 T3           ; Tool change to probe (assuming T3 is the probe)
+G0 X[#1] Y[#2]  ; Move to the Circle 1 position
+G38.2 Z-15 F100 ; Probe towards Z-15 at feed rate 100
+G92 Z0          ; Set current Z position as 0
+G0 Z10          ; Retract to safe height
+; Circle 1 - Drilling
+M6 T1           ; Tool change to tool 1 (assuming T1 is the correct tool)
+M3 S1500        ; Spindle on clockwise at 1500 RPM
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#1] Y[#2]  ; Move to the Circle 1 position
+G1 Z[#7] F200   ; Drill down to Z-5 at feed rate 200
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Circle 1 - Tapping
+M6 T2           ; Tool change to tap (assuming T2 is the tap)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#1] Y[#2]  ; Move to the Circle 1 position
+G84 Z[#8] R[#9] F100 ; Tapping cycle, Z depth -5, retract height 10, feed rate 100
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Circle 1 - Thread Milling
+M6 T4           ; Tool change to thread mill (assuming T4 is the thread mill)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#1] Y[#2]  ; Move to the Circle 1 position
+G1 Z0 F200      ; Move to Z0 at feed rate 200
+G2 I[#11/2] Z[#10] F100 ; Helical interpolation for thread milling, pitch = 1mm, depth = -5mm
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Probing Cycle for Circle 2
+M6 T3           ; Tool change to probe (assuming T3 is the probe)
+G0 X[#3] Y[#4]  ; Move to the Circle 2 position
+G38.2 Z-15 F100 ; Probe towards Z-15 at feed rate 100
+G92 Z0          ; Set current Z position as 0
+G0 Z10          ; Retract to safe height
+; Circle 2 - Drilling
+M6 T1           ; Tool change to tool 1 (assuming T1 is the correct tool)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#3] Y[#4]  ; Move to the Circle 2 position
+G1 Z[#7] F200   ; Drill down to Z-5 at feed rate 200
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Circle 2 - Tapping
+M6 T2           ; Tool change to tap (assuming T2 is the tap)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#3] Y[#4]  ; Move to the Circle 2 position
+G84 Z[#8] R[#9] F100 ; Tapping cycle, Z depth -5, retract height 10, feed rate 100
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Circle 2 - Thread Milling
+M6 T4           ; Tool change to thread mill (assuming T4 is the thread mill)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#3] Y[#4]  ; Move to the Circle 2 position
+G1 Z0 F200      ; Move to Z0 at feed rate 200
+G2 I[#11/2] Z[#10] F100 ; Helical interpolation for thread milling, pitch = 1mm, depth = -5mm
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Probing Cycle for Circle 3
+M6 T3           ; Tool change to probe (assuming T3 is the probe)
+G0 X[#5] Y[#6]  ; Move to the Circle 3 position
+G38.2 Z-15 F100 ; Probe towards Z-15 at feed rate 100
+G92 Z0          ; Set current Z position as 0
+G0 Z10          ; Retract to safe height
+; Circle 3 - Drilling
+M6 T1           ; Tool change to tool 1 (assuming T1 is the correct tool)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#5] Y[#6]  ; Move to the Circle 3 position
+G1 Z[#7] F200   ; Drill down to Z-5 at feed rate 200
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Circle 3 - Tapping
+M6 T2           ; Tool change to tap (assuming T2 is the tap)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#5] Y[#6]  ; Move to the Circle 3 position
+G84 Z[#8] R[#9] F100 ; Tapping cycle, Z depth -5, retract height 10, feed rate 100
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+; Circle 3 - Thread Milling
+M6 T4           ; Tool change to thread mill (assuming T4 is the thread mill)
+M8              ; Coolant on
+M7              ; Mist on
+G0 X[#5] Y[#6]  ; Move to the Circle 3 position
+G1 Z0 F200      ; Move to Z0 at feed rate 200
+G2 I[#11/2] Z[#10] F100 ; Helical interpolation for thread milling, pitch = 1mm, depth = -5mm
+G0 Z[#9]        ; Retract to safe height
+M9              ; Coolant and mist off
+M5              ; Spindle stop
+G0 Z10          ; Raise tool to safe height
+G0 X0 Y0        ; Return to home position
+M30             ; End of program
+%
+        </code></pre>
+    </div>
+<div class="gmctabe">
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>G00</td>
+                <td>Rapid positioning</td>
+            </tr>
+            <tr>
+                <td>G01</td>
+                <td>Linear interpolation</td>
+            </tr>
+            <tr>
+                <td>G02</td>
+                <td>Circular interpolation, clockwise</td>
+            </tr>
+            <tr>
+                <td>G03</td>
+                <td>Circular interpolation, counterclockwise</td>
+            </tr>
+            <tr>
+                <td>G04</td>
+                <td>Dwell</td>
+            </tr>
+            <tr>
+                <td>G10</td>
+                <td>Coordinate system origin setting</td>
+            </tr>
+            <tr>
+                <td>G17</td>
+                <td>Select XY plane</td>
+            </tr>
+            <tr>
+                <td>G18</td>
+                <td>Select XZ plane</td>
+            </tr>
+            <tr>
+                <td>G19</td>
+                <td>Select YZ plane</td>
+            </tr>
+            <tr>
+                <td>G20</td>
+                <td>Programming in inches</td>
+            </tr>
+            <tr>
+                <td>G21</td>
+                <td>Programming in millimeters</td>
+            </tr>
+            <tr>
+                <td>G28</td>
+                <td>Return to home position</td>
+            </tr>
+            <tr>
+                <td>G30</td>
+                <td>Return to secondary home position</td>
+            </tr>
+            <tr>
+                <td>G40</td>
+                <td>Cancel cutter radius compensation</td>
+            </tr>
+            <tr>
+                <td>G41</td>
+                <td>Cutter radius compensation left</td>
+            </tr>
+            <tr>
+                <td>G42</td>
+                <td>Cutter radius compensation right</td>
+            </tr>
+            <tr>
+                <td>G43</td>
+                <td>Tool length offset compensation positive</td>
+            </tr>
+            <tr>
+                <td>G44</td>
+                <td>Tool length offset compensation negative</td>
+            </tr>
+            <tr>
+                <td>G49</td>
+                <td>Cancel tool length offset compensation</td>
+            </tr>
+            <tr>
+                <td>G54</td>
+                <td>Work coordinate system 1</td>
+            </tr>
+            <tr>
+                <td>G55</td>
+                <td>Work coordinate system 2</td>
+            </tr>
+            <tr>
+                <td>G56</td>
+                <td>Work coordinate system 3</td>
+            </tr>
+            <tr>
+                <td>G57</td>
+                <td>Work coordinate system 4</td>
+            </tr>
+            <tr>
+                <td>G58</td>
+                <td>Work coordinate system 5</td>
+            </tr>
+            <tr>
+                <td>G59</td>
+                <td>Work coordinate system 6</td>
+            </tr>
+            <tr>
+                <td>G61</td>
+                <td>Exact stop check mode</td>
+            </tr>
+            <tr>
+                <td>G64</td>
+                <td>Constant cutting mode</td>
+            </tr>
+            <tr>
+                <td>G80</td>
+                <td>Cancel canned cycle</td>
+            </tr>
+            <tr>
+                <td>G81</td>
+                <td>Simple drilling cycle</td>
+            </tr>
+            <tr>
+                <td>G82</td>
+                <td>Drilling cycle with dwell</td>
+            </tr>
+            <tr>
+                <td>G83</td>
+                <td>Peck drilling cycle</td>
+            </tr>
+            <tr>
+                <td>G84</td>
+                <td>Tapping cycle</td>
+            </tr>
+            <tr>
+                <td>G85</td>
+                <td>Boring cycle</td>
+            </tr>
+            <tr>
+                <td>G86</td>
+                <td>Boring cycle with spindle stop</td>
+            </tr>
+            <tr>
+                <td>G87</td>
+                <td>Back boring cycle</td>
+            </tr>
+            <tr>
+                <td>G88</td>
+                <td>Boring cycle with manual retraction</td>
+            </tr>
+            <tr>
+                <td>G89</td>
+                <td>Boring cycle with dwell</td>
+            </tr>
+            <tr>
+                <td>G90</td>
+                <td>Absolute programming</td>
+            </tr>
+            <tr>
+                <td>G91</td>
+                <td>Incremental programming</td>
+            </tr>
+            <tr>
+                <td>G92</td>
+                <td>Set position</td>
+            </tr>
+            <tr>
+                <td>G94</td>
+                <td>Feedrate per minute</td>
+            </tr>
+            <tr>
+                <td>G95</td>
+                <td>Feedrate per revolution</td>
+            </tr>
+            <tr>
+                <td>G98</td>
+                <td>Return to initial level in canned cycle</td>
+            </tr>
+            <tr>
+                <td>G99</td>
+                <td>Return to R level in canned cycle</td>
+            </tr>
+            <tr>
+                <td>M00</td>
+                <td>Program stop</td>
+            </tr>
+            <tr>
+                <td>M01</td>
+                <td>Optional stop</td>
+            </tr>
+            <tr>
+                <td>M02</td>
+                <td>End of program</td>
+            </tr>
+            <tr>
+                <td>M03</td>
+                <td>Spindle on clockwise</td>
+            </tr>
+            <tr>
+                <td>M04</td>
+                <td>Spindle on counterclockwise</td>
+            </tr>
+            <tr>
+                <td>M05</td>
+                <td>Spindle stop</td>
+            </tr>
+            <tr>
+                <td>M06</td>
+                <td>Tool change</td>
+            </tr>
+            <tr>
+                <td>M07</td>
+                <td>Mist coolant on</td>
+            </tr>
+            <tr>
+                <td>M08</td>
+                <td>Flood coolant on</td>
+            </tr>
+            <tr>
+                <td>M09</td>
+                <td>Coolant off</td>
+            </tr>
+            <tr>
+                <td>M10</td>
+                <td>Chuck clamp</td>
+            </tr>
+            <tr>
+                <td>M11</td>
+                <td>Chuck unclamp</td>
+            </tr>
+            <tr>
+                <td>M13</td>
+                <td>Spindle on clockwise and coolant on</td>
+            </tr>
+            <tr>
+                <td>M19</td>
+                <td>Spindle orientation</td>
+            </tr>
+            <tr>
+                <td>M30</td>
+                <td>End of program with return to start</td>
+            </tr>
+            <tr>
+                <td>M48</td>
+                <td>Override enable</td>
+            </tr>
+            <tr>
+                <td>M49</td>
+                <td>Override disable</td>
+            </tr>
+            <tr>
+                <td>M60</td>
+                <td>Automatic pallet change</td>
+            </tr>
+            <tr>
+                <td>M98</td>
+                <td>Subprogram call</td>
+            </tr>
+            <tr>
+                <td>M99</td>
+                <td>Subprogram end</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <script src="converter.js"></script>
+    <script src="taperingcycle.js"></script>
+    <script src="tapcalculate.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+/* Base Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    background-color: #f0f0f0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Container Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Canvas Styles */
+canvas {
+    border: 1px solid #333;
+    background-color: #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+    max-width: 100%;
+}
+
+/* Control Panel Styles */
+.controls {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+    width: 300px;
+    height: auto;
+}
+
+.controls h3 {
+    margin-top: 0;
+    color: #9b9b9b;
+}
+
+.controls label {
+    margin-top: 10px;
+    color: #555;
+}
+
+.controls input,
+.controls select {
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Circle Control Styles */
+.circle-controls {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.circle-controls fieldset {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    transition: border-color 0.3s;
+}
+
+.circle-controls legend {
+    font-weight: bold;
+    color: #333;
+}
+
+.circle-controls label {
+    margin-top: 5px;
+    display: block;
+}
+
+.angle-direction-container {
+    display: flex;
+    align-items: center;
+}
+
+.angle-direction-container select {
+    margin-left: 10px;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.controls.dark-mode,
+.coordinates-container.dark-mode,
+.coordinates-heading.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+.coordinates.dark-mode {
+    border-color: #555555;
+}
+
+.arrow-buttons button.dark-mode {
+    background-color: #666666;
+    color: #ffffff;
+}
+
+.arrow-buttons button.dark-mode:hover {
+    background-color: #888888;
+}
+
+.action-button.dark-mode {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.action-button.dark-mode:hover {
+    background-color: #666666;
+}
+
+canvas.dark-mode {
+    background-color: #333333;
+    border-color: #ffffff;
+}
+
+.circle-controls fieldset.dark-mode {
+    border-color: #555555;
+}
+
+.circle-controls legend.dark-mode,
+.circle-controls label.dark-mode {
+    color: #ffffff;
+}
+
+input.dark-mode,
+select.dark-mode {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #555555;
+}
+
+input.dark-mode::placeholder {
+    color: #cccccc;
+}
+
+/* Coordinates Container Styles */
+.coordinates-container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 300px;
+    width: 89%;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.coordinates-heading {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 10px;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.coordinates {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.coordinates ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.coordinates li {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    cursor: grab;
+    margin-right: 10px;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+.coordinates li:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.coordinates li.dragging {
+    background-color: #d3eaff;
+}
+
+/* Additional Container Styles */
+.tapering-cycle-container,
+.dt-container,
+.unitconverter,
+.cnc-container,
+.gmctabe {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    width: 89%;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Button Styles */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.arrow-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.arrow-buttons button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.arrow-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.action-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.delete-button {
+    color: white;
+    background-color: red;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+.edit-button {
+    color: white;
+    background-color: blue;
+    border: none;
+}
+
+.edit-button:hover {
+    background-color: darkblue;
+}
+
+.mirror-button {
+    color: white;
+    background-color: green;
+    border: none;
+}
+
+.mirror-button:hover {
+    background-color: darkgreen;
+}
+
+.parallel-button {
+    color: white;
+    background-color: purple;
+    border: none;
+}
+
+.parallel-button:hover {
+    background-color: darkpurple;
+}
+
+/* Toggle Input Styles */
+.toggle-inputs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.vertical-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical-buttons button + button {
+    margin-top: 10px;
+}
+
+/* Dark Mode Toggle Styles */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dark-mode-toggle label {
+    margin-right: 10px;
+}
+
+.dark-mode-toggle input[type="checkbox"] {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.dark-mode-toggle input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.dark-mode-toggle input[type="checkbox"]:checked {
+    background-color: #4caf50;
+}
+
+.dark-mode-toggle input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}
+
+/* Pre and Code Styles */
+pre {
+    background-color: #272822;
+    color: #f8f8f2;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: Consolas, "Courier New", Courier, monospace;
+}
+
+/* Input Group Styles */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.output {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1400px) {
+    .coordinates-container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .coordinates-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 992px) {
+    .coordinates-container {
+        width: 85%;
+    }
+    .controls {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .controls {
+        margin-left: 0;
+        width: 95%;
+    }
+    .coordinates-container {
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+    }
+    .arrow-buttons button {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .controls {
+        padding: 15px;
+    }
+    .arrow-buttons button {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    .coordinates-container {
+        padding: 15px;
+    }
+    .coordinates {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .controls {
+        margin-left: 0;
+        width: 100%;
+    }
+    .coordinates-container {
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+    }
+    .coordinates {
+        height: auto;
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+    .arrow-buttons button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .controls {
+        padding: 5px;
+        width: 100%;
+    }
+    .arrow-buttons button {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    .coordinates-container {
+        padding: 5px;
+    }
+    .coordinates {
+        max-height: 150px;
+    }
+}
