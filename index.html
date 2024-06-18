@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+    <div class="navbar">
+        <a class="navbar-link" href="https://08milam.github.io/home/" target="_blank">◉</a>
+        <a class="navbar-link" href="https://www.linkedin.com/in/matthewmilam/" target="_blank">LinkedIn</a>
+        <a class="navbar-link" href="https://08milam.github.io/projects/" target="_blank">Projects</a>
+        <a class="navbar-link" href="https://08milam.github.io/badges/" target="_blank">Badges</a>
+        <a class="navbar-link" href="https://github.com/08milam" target="_blank">Github</a>
+        <a class="navbar-link" href="mailto:08milam@gmail.com">E-mail</a>
+    </div>
+    <h1>DO NOT USE THIS PROGRAM, BECAUSE THIS HAS BUG WITH FEEDS AND SPEEDS</h1>
     <div class="dark-mode-toggle">
         <label for="modeToggle">Dark Mode:</label>
         <input type="checkbox" id="modeToggle" />
@@ -597,6 +607,190 @@ M30             ; End of program
             </tr>
         </tbody>
     </table>
+</div>
+<div class="gmctabe">
+    <h1>How to Use the Tap Size Calculator</h1>
+    <p>
+      The Tap Size Calculator helps you determine the recommended tap size based
+      on the drill size and thread pitch. Follow these steps to use the
+      calculator:
+    </p>
+
+    <h2>Select the Unit System:</h2>
+    <ul>
+      <li>
+        Use the dropdown menu labeled "Unit System" to choose either "Metric" or
+        "Imperial."
+      </li>
+      <li>
+        The "Metric" system is typically used with millimeters (mm), while the
+        "Imperial" system uses inches.
+      </li>
+    </ul>
+
+    <h2>Enter the Drill Size:</h2>
+    <ul>
+      <li>
+        In the input field labeled "Drill Size," enter the numerical value for
+        the size of the drill.
+      </li>
+      <li>
+        Ensure the value matches the unit system selected (mm for Metric, inches
+        for Imperial).
+      </li>
+    </ul>
+
+    <h2>Enter the Thread Pitch:</h2>
+    <ul>
+      <li>
+        In the input field labeled "Thread Pitch," enter the numerical value for
+        the thread pitch.
+      </li>
+      <li>For the Metric system, this is usually in millimeters (mm).</li>
+      <li>
+        For the Imperial system, this is typically threads per inch (TPI).
+      </li>
+    </ul>
+
+    <h2>Calculate the Tap Size:</h2>
+    <ul>
+      <li>
+        Click the "Calculate Tap Size" button to compute the recommended tap
+        size.
+      </li>
+      <li>
+        The result will be displayed in the paragraph element below the button,
+        indicating the tap size in the appropriate unit (mm for Metric, inches
+        for Imperial).
+      </li>
+    </ul>
+
+    <h2>Example Usage</h2>
+    <h3>Select Unit System:</h3>
+    <ul>
+      <li>Choose "Metric" from the dropdown menu.</li>
+    </ul>
+
+    <h3>Enter Drill Size:</h3>
+    <ul>
+      <li>Input <strong>5</strong> in the "Drill Size" field.</li>
+    </ul>
+
+    <h3>Enter Thread Pitch:</h3>
+    <ul>
+      <li>Input <strong>0.8</strong> in the "Thread Pitch" field.</li>
+    </ul>
+
+    <h3>Calculate Tap Size:</h3>
+    <ul>
+      <li>Click the "Calculate Tap Size" button.</li>
+      <li>
+        The result will be displayed as
+        <strong>Recommended Tap Size: 5.80 mm</strong>.
+      </li>
+    </ul>
+
+    <h2>Error Handling</h2>
+    <p>
+      If the input values for drill size or thread pitch are not valid numbers,
+      an error message will be displayed:
+      <strong>Please enter valid numbers for both fields.</strong>
+    </p>
+
+    <hr />
+
+    <h1>How to Use the Tapering Cycle G-Code Generator</h1>
+    <div class="content-section">
+      <p>
+        The Tapering Cycle G-Code Generator is a tool designed to create G-code
+        for machining tapered shapes. Follow these steps to generate your
+        G-code:
+      </p>
+      <h2>1. Select Units</h2>
+      <p>
+        <strong>Units:</strong> Use the dropdown menu to select the units of
+        measurement for your parameters. You can choose between:
+      </p>
+      <ul>
+        <li>Millimeters (mm)</li>
+        <li>Inches (inch)</li>
+      </ul>
+    </div>
+    <div class="content-section">
+      <h2>2. Input Parameters</h2>
+      <p>
+        <strong>Start Diameter:</strong> Enter the diameter at the starting
+        point of the taper. This is a required field.
+      </p>
+      <p>
+        <strong>End Diameter:</strong> Enter the diameter at the end point of
+        the taper. This is a required field.
+      </p>
+      <p>
+        <strong>Length:</strong> Enter the length of the taper. This is a
+        required field.
+      </p>
+      <p>
+        <strong>Cut Depth:</strong> Enter the depth of each cut. This is a
+        required field.
+      </p>
+    </div>
+    <div class="content-section">
+      <h2>3. Generate G-Code</h2>
+      <p>
+        After entering all the required parameters, click the
+        <strong>Generate G-Code</strong> button.
+      </p>
+    </div>
+    <div class="content-section">
+      <h2>4. View Output</h2>
+      <p>
+        The generated G-code will be displayed in the output area below the
+        button. You can then use this code for your CNC machining operations.
+      </p>
+    </div>
+    <div class="content-section">
+      <h2>Example Workflow</h2>
+      <ul>
+        <li><strong>Select Units:</strong> Choose "Millimeters."</li>
+        <li>
+          <strong>Enter Start Diameter:</strong> Input "50" for a start diameter
+          of 50mm.
+        </li>
+        <li>
+          <strong>Enter End Diameter:</strong> Input "30" for an end diameter of
+          30mm.
+        </li>
+        <li>
+          <strong>Enter Length:</strong> Input "100" for a taper length of
+          100mm.
+        </li>
+        <li>
+          <strong>Enter Cut Depth:</strong> Input "2" for a cut depth of 2mm.
+        </li>
+        <li>
+          <strong>Click Generate G-Code:</strong> The G-code will be generated
+          and displayed.
+        </li>
+      </ul>
+    </div>
+    <div class="content-section">
+      <h2>Notes</h2>
+      <ul>
+        <li>
+          Ensure all fields are filled correctly before generating the G-code.
+        </li>
+        <li>
+          Double-check the units selected to match your machining requirements.
+        </li>
+      </ul>
+      <p>
+        By following these steps, you can efficiently generate the necessary
+        G-code for tapering operations.
+      </p>
+    </div>
+
+
 </div>
     <script src="converter.js"></script>
     <script src="taperingcycle.js"></script>

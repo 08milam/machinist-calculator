@@ -9,6 +9,85 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+
+
+
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #333;
+    padding: 10px;
+    align-items: center;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px;
+}
+
+.navbar-link:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+.menu-toggle {
+    display: none;
+    flex-basis: 100%;
+    text-align: right;
+    padding: 10px;
+    margin: 5px;
+}
+
+.menu-toggle label {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+.menu-links {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu-toggle label {
+        display: block;
+    }
+
+    .menu-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .menu-toggle input:checked ~ .menu-links {
+        display: flex;
+    }
+
+    .navbar-link {
+        flex-basis: 100%;
+        text-align: center;
+    }
+}
+
+.menu-toggle input {
+    display: none;
+}
+
+
+
 /* Container Styles */
 .container {
     display: flex;
