@@ -17,13 +17,20 @@
         <a class="navbar-link" href="mailto:08milam@gmail.com">E-mail</a>
     </div>
     <h1>DO NOT USE THIS PROGRAM, BECAUSE THIS HAS BUG WITH FEEDS AND SPEEDS</h1>
-    <div class="dark-mode-toggle">
-        <label for="modeToggle">Dark Mode:</label>
-        <input type="checkbox" id="modeToggle" />
-    </div>
+
     <div class="container">
         <canvas id="field" width="865" height="865"></canvas>
         <div class="controls">
+            <label for="zoomSlider">Zoom:</label>
+            <input type="range" id="zoomSlider" min="0.1" max="10" step="0.1" value="1" />
+            <div class="arrow-buttons">
+                <button id="arrowLeft">←</button>
+                <div class="vertical-buttons">
+                    <button id="arrowUp">↑</button>
+                    <button id="arrowDown">↓</button>
+                </div>
+                <button id="arrowRight">→</button>
+            </div>
             <!-- Blue Square Controls -->
             <h3>Blue Square Controls</h3>
             <label for="width">Width:</label>
@@ -126,16 +133,7 @@
                 <button id="removeCircle" class="action-button">Remove Last Red Circle</button>
             </div>
             <h3>Motion Controls</h3>
-            <label for="zoomSlider">Zoom:</label>
-            <input type="range" id="zoomSlider" min="0.1" max="10" step="0.1" value="1" />
-            <div class="arrow-buttons">
-                <button id="arrowLeft">←</button>
-                <div class="vertical-buttons">
-                    <button id="arrowUp">↑</button>
-                    <button id="arrowDown">↓</button>
-                </div>
-                <button id="arrowRight">→</button>
-            </div>
+
         </div>
     </div>
     <div class="coordinates-container">
