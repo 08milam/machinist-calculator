@@ -17,7 +17,10 @@
         <a class="navbar-link" href="mailto:08milam@gmail.com">E-mail</a>
     </div>
     <h1>DO NOT USE THIS PROGRAM, BECAUSE THIS HAS BUG WITH FEEDS AND SPEEDS</h1>
-
+    <div class="dark-mode-toggle">
+        <label for="modeToggle">Dark Mode:</label>
+        <input type="checkbox" id="modeToggle" />
+    </div>
     <div class="container">
         <canvas id="field" width="865" height="865"></canvas>
         <div class="controls">
@@ -173,27 +176,7 @@
         <button onclick="generateGCode()">Generate G-Code</button>
         <div class="output" id="gcodeOutput"></div>
     </div>
-    <!-- Drill to Tap Calculator -->
-    <div class="dt-container">
-        <h1>Drill to Tap Calculator</h1>
-        <div class="input-group">
-            <label for="unit-system">Unit System:</label>
-            <select id="unit-system" onchange="toggleUnitLabels()">
-                <option value="metric">Metric</option>
-                <option value="inch">Inch</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="drill-size" id="drill-size-label">Drill Size (mm):</label>
-            <input type="number" id="drill-size" step="0.01" />
-        </div>
-        <div class="input-group">
-            <label for="thread-pitch" id="thread-pitch-label">Thread Pitch (mm):</label>
-            <input type="number" id="thread-pitch" step="0.01" />
-        </div>
-        <button onclick="calculateTap()">Calculate Tap Size</button>
-        <div class="result" id="result"></div>
-    </div>
+
     <!-- Standard to Metric Converter -->
     <div class="unitconverter">
         <h1>Standard to Metric Converter</h1>
@@ -607,96 +590,7 @@ M30             ; End of program
     </table>
 </div>
 <div class="gmctabe">
-    <h1>How to Use the Tap Size Calculator</h1>
-    <p>
-      The Tap Size Calculator helps you determine the recommended tap size based
-      on the drill size and thread pitch. Follow these steps to use the
-      calculator:
-    </p>
-
-    <h2>Select the Unit System:</h2>
-    <ul>
-      <li>
-        Use the dropdown menu labeled "Unit System" to choose either "Metric" or
-        "Imperial."
-      </li>
-      <li>
-        The "Metric" system is typically used with millimeters (mm), while the
-        "Imperial" system uses inches.
-      </li>
-    </ul>
-
-    <h2>Enter the Drill Size:</h2>
-    <ul>
-      <li>
-        In the input field labeled "Drill Size," enter the numerical value for
-        the size of the drill.
-      </li>
-      <li>
-        Ensure the value matches the unit system selected (mm for Metric, inches
-        for Imperial).
-      </li>
-    </ul>
-
-    <h2>Enter the Thread Pitch:</h2>
-    <ul>
-      <li>
-        In the input field labeled "Thread Pitch," enter the numerical value for
-        the thread pitch.
-      </li>
-      <li>For the Metric system, this is usually in millimeters (mm).</li>
-      <li>
-        For the Imperial system, this is typically threads per inch (TPI).
-      </li>
-    </ul>
-
-    <h2>Calculate the Tap Size:</h2>
-    <ul>
-      <li>
-        Click the "Calculate Tap Size" button to compute the recommended tap
-        size.
-      </li>
-      <li>
-        The result will be displayed in the paragraph element below the button,
-        indicating the tap size in the appropriate unit (mm for Metric, inches
-        for Imperial).
-      </li>
-    </ul>
-
-    <h2>Example Usage</h2>
-    <h3>Select Unit System:</h3>
-    <ul>
-      <li>Choose "Metric" from the dropdown menu.</li>
-    </ul>
-
-    <h3>Enter Drill Size:</h3>
-    <ul>
-      <li>Input <strong>5</strong> in the "Drill Size" field.</li>
-    </ul>
-
-    <h3>Enter Thread Pitch:</h3>
-    <ul>
-      <li>Input <strong>0.8</strong> in the "Thread Pitch" field.</li>
-    </ul>
-
-    <h3>Calculate Tap Size:</h3>
-    <ul>
-      <li>Click the "Calculate Tap Size" button.</li>
-      <li>
-        The result will be displayed as
-        <strong>Recommended Tap Size: 5.80 mm</strong>.
-      </li>
-    </ul>
-
-    <h2>Error Handling</h2>
-    <p>
-      If the input values for drill size or thread pitch are not valid numbers,
-      an error message will be displayed:
-      <strong>Please enter valid numbers for both fields.</strong>
-    </p>
-
-    <hr />
-
+   
     <h1>How to Use the Tapering Cycle G-Code Generator</h1>
     <div class="content-section">
       <p>
